@@ -1,0 +1,7 @@
+{
+  "name": "SkeletonAPP (NgModules)",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
