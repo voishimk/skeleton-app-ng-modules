@@ -1,0 +1,53 @@
+ion-content{
+    
+}
+
+ion-header{
+    text-align: center;
+    
+}
+
+.formLogin{
+    margin: 50px;
+    
+
+    
+}
+
+.userInput .passwordInput{
+    border-radius: 4px;
+    background: gray;
+    background-color: gray;
+    padding-left: 16px;
+    padding-right: 16px;
+    
+}
+
+.subtituloApp{
+    text-align: center;
+}
+
+.btnIngresa {
+    padding-left: 50px;
+    padding-right: 50px;
+
+}
+
+@keyframes titulo {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+ion-title{
+    animation: titulo 5s linear infinite;
+}

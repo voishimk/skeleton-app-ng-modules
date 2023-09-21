@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>SkeletonApp</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" class="ion-text-center">Skeleton App</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="subtituloApp">
+    <ion-text>
+      <p>Aquí comienza todo</p>
+    </ion-text>
+
+    <ion-text>
+      <h3>Bienvenido!</h3>
+    </ion-text>
+  </div>
+  
+  <div class="formLogin">
+    <div class="userInput">
+      <ion-input
+        [(ngModel)]="user"
+        name="user"
+        minlength="3"
+        maxlength="8"
+        pattern="^[a-zA-Z0-9]+$"
+        label="Usuario"
+        type="text"
+        label-placement="floating"
+        fill="outline"
+        placeholder="Ingresa tu nombre de usuario"
+        required
+      ></ion-input>
+    </div>
+    <br />
+    <div class="passwordInput">
+      <ion-input
+        [(ngModel)]="password"
+        inputmode="numeric"
+        pattern="^[0-9]*"
+        minlength="4"
+        maxlength="4"
+        name="password"
+        type="password"
+        label="Contraseña"
+        label-placement="floating"
+        fill="outline"
+        placeholder="****"
+        required
+      ></ion-input>
+    </div>
+  </div>
+
+  <div class="btnIngresa">
+    <ion-button (click)="openHome()" expand="full" shape="round">
+      Ingresa
+    </ion-button>
+  </div>
+</ion-content>

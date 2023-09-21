@@ -1,0 +1,148 @@
+<!-- Component: importarlo en el 'declaration' de module de la page que quiera ponerlo xd -->
+<ion-content [fullscreen]="true">
+  <ion-segment [(ngModel)]="selectTabs">
+    <ion-segment-button value="explaboral">
+      <ion-label>Experiencia Laboral</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="certi">
+      <ion-label>Certificaciones</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="misdatos">
+      <ion-label>Mis Datos</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectTabs === 'explaboral'">
+    <div class="formExpLaboral">
+      <h1>Experiencia Laboral</h1>
+      <ion-list>
+        <!-- Empresa -->
+        <ion-item>
+          <ion-input [(ngModel)]="empresaInput" name="empresaInput" type="text" label="Empresa"></ion-input>
+        </ion-item>
+        <!-- Año Inicio -->
+        <ion-item>
+          <label>Año Inicio</label>
+          <ion-datetime-button datetime="datetime"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime name="fechaInicioInput" presentation="year" id="datetime"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+        <!-- Si sigue trabajanbdo -->
+        <ion-item>
+          <ion-radio-group [(ngModel)]="trabajandoInput" value="trabajando">
+            <ion-radio value="si">Actualmente sigo trabajando</ion-radio><br />
+            <ion-radio value="no">Actualmente ya no trabajo ahí</ion-radio><br />
+          </ion-radio-group>
+        </ion-item>
+        <ion-item *ngIf="trabajandoInput === 'no'">
+          <label position="floating">Año de término</label>
+          <ion-datetime presentation="year" id="datetime"></ion-datetime>
+        </ion-item>
+        <!-- Cargo -->
+        <ion-item>
+          <ion-input [(ngModel)]="cargoInput" name="cargoInput" type="text" label="Cargo"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <div *ngIf="selectTabs === 'misdatos'">
+
+    <div class="resultados">
+      <ion-item>
+        <label for="">Usuario: {{ user }} </label>
+      </ion-item>
+      <ion-item>
+        <label for="">Password: {{ password }} </label>
+
+      </ion-item>
+    </div>
+
+    <div class="formInfoUser">
+      <h1>Bienvenido {{ user }}</h1>
+      <ion-list>
+        <ion-item #ionInput1>
+          <ion-input [(ngModel)]="nameInput" name="nameInput" type="text" label="Nombre"></ion-input>
+        </ion-item>
+        <ion-item #ionInput2>
+          <ion-input [(ngModel)]="lastNameInput" name="lastNameInput" type="text" label="Apellido"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-select [(ngModel)]="cbEducation" name="cbEducation" interface="popover" label="Nivel Educacional">
+            <ion-select-option value="basica">Enseñanza Básica</ion-select-option>
+            <ion-select-option value="media">Enseñanza Media</ion-select-option>
+            <ion-select-option value="tecnico">Enseñanza Media Técnica</ion-select-option>
+            <ion-select-option value="superior">Enseñanza Superior</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <label for="">Fecha de Nacimiento</label>
+          <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime presentation="date" id="datetime"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+
+      </ion-list>
+    </div>
+
+    <div class="btnLimpiar">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="clearInputs()" color="secondary" expand="full">Limpiar</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="showInput()" color="success" expand="full">Mostrar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="btnLogin">
+      <ion-button color="secondary" expand="full" (click)="openLogin()">Volver</ion-button>
+    </div>
+
+  </div>
+
+  <div *ngIf="selectTabs === 'certi'">
+    <div class="formCertificado">
+      <h1>Certificados</h1>
+      <ion-list>
+        <!-- Nombre Certificado -->
+        <ion-item>
+          <ion-input [(ngModel)]="nombreCertiInput" name="nombreCertiInput" type="text"
+            label="Nombre Certificado"></ion-input>
+        </ion-item>
+        <ion-item>
+          <label for="">Fecha de obtención</label>
+          <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime presentation="date" id="datetime"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+        <ion-item>
+          <label for="">¿El certificado tiene fecha de vencimiento?</label>
+          <ion-radio-group [(ngModel)]="vencCertiInput" value="vencCerti">
+            <ion-radio value="no">No</ion-radio><br/>
+            <ion-radio value="si">Sí</ion-radio><br/>
+          </ion-radio-group>
+        </ion-item>
+        <ion-item *ngIf="vencCertiInput === 'si'">
+          <label position="floating">Fecha de vencimiento</label>
+          <ion-datetime presentation="date" id="datetime"></ion-datetime>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+</ion-content>
