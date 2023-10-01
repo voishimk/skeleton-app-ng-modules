@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">registro</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card> 
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Nombre de usuario:</ion-label>
+        <ion-input [(ngModel)]="user" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Nombre:</ion-label>
+        <ion-input [(ngModel)]="name" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Contraseña:</ion-label>
+        <ion-input [(ngModel)]="password" type="password" pattern="^[0-9]*"
+        minlength="4"
+        maxlength="4"></ion-input>
+      </ion-item>
+    </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="registro()" expand="full">Registrar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+
+  <ion-button (click)="getValue()">Get Value</ion-button>
+  <ion-button (click)="removeValue()">Remove Value</ion-button>
+  <ion-button (click)="clearStorage()">Clear Storage</ion-button>
+
+
+</ion-content>

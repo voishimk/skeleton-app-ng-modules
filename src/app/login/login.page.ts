@@ -1,9 +1,11 @@
+import { StorageService } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, ToastController } from '@ionic/angular';
+import { AlertController, IonicModule, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-login',
@@ -12,26 +14,29 @@ import { NavController } from '@ionic/angular';
 })
 export class LoginPage {
   user: string = '';
+  
   password: string = '';
+  
 
   constructor(
     private router: Router,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private storageService: StorageService,
+    private alertService:AlertController
   ) {}
 
-  async mostrarToast(mensaje: string) {
-    const toast = await this.toastController.create({
-      message: mensaje,
-      duration: 2000, // Duración en milisegundos
-      position: 'middle', // Posición en la pantalla (middle, top, bottom)
-    });
-
-    toast.present();
+  async showAlert(msg:string, title:string){
+    var alert = await this.alertService.create({cssClass:"alertClass",message:msg,header:title,buttons:['Aceptar']});
+    await alert.present();
+    return alert;
   }
 
-  openHome() {
+  async openHome() {
+    
     if (this.user && this.password) {
-      if (this.validarCampos()) {
+      if (await this.validarCampos()) {
+        console.log("Inicio exitoso, sesión activa");
+        
         this.router.navigate(['/home'], {
           queryParams: {
             user: this.user,
@@ -39,22 +44,27 @@ export class LoginPage {
           },
         });
       } else {
-        this.mostrarToast(
-          'Tu usuario debe de ser de 3 a 8 caracteres y tu contraseña de 4 dígitos.'
-        );
+        this.showAlert('Tu usuario debe de ser de 3 a 8 caracteres y tu contraseña de 4 dígitos.',"Error");
       }
     } else {
-      this.mostrarToast('Por favor, completa ambos campos.');
+      this.showAlert('Por favor, completa ambos campos.',"Error");
     }
   }
 
-  private validarCampos(): boolean {
-    const userValido = /^[a-zA-Z0-9]{3,8}$/.test(this.user);
-    const passwordValido = /^[0-9]{4}$/.test(this.password);
+  async validarCampos() {
+    const userBd = await this.storageService.get('user');
+    const passwordBd = await this.storageService.get('password');
 
-    return userValido && passwordValido;
+    if (userBd === this.user && passwordBd === this.password) {
+      this.storageService.set("active","1")
+      return true;
+    } else {
+      return false;
+    }
   }
   
-  
+  openRegistro(){
+    this.router.navigateByUrl('/registro');
+  }
 
 }

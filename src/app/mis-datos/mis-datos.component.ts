@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController, createAnimation } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-mis-datos',
@@ -31,9 +33,11 @@ export class MisDatosComponent  implements OnInit {
   constructor(private router: Router, 
     private route: ActivatedRoute,
     private toastController: ToastController,
+    private storage: Storage,
+    private storageService: StorageService
      ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.user = params['user'];
       this.password = params['password'];
@@ -41,11 +45,13 @@ export class MisDatosComponent  implements OnInit {
       this.lastNameInput = params['lastNameInput'];
       this.cbEducation = params['cbEducation'];
     });
+    await this.storage.create();
   }
 
   openLogin() {
     this.router.navigateByUrl('/login');
     this.clearInputs();
+    this.storageService.set("activo","0")
   }  
 
   clearInputs(){
